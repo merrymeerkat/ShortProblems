@@ -1,2 +1,3 @@
 # LeetCodeAnswers
-Answers to LeetCode problems
+My answers to a selection of LeetCode problems.
+Written in OCaml.
