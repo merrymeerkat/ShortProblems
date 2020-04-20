@@ -1,3 +1,9 @@
+(* 42. Trapping Rain Water *)
+
+(* Level: Hard *)
+
+(* Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining. *)
+
 (* Our trapping rain water function will basically work like this: we count how many "surrounded" zeroes there are in the list given, then we decrease all of the list element values by 1 and do the same, until the entire list only has numbers below 1 (i.e. until the entire skyline has been "sunk"). By "surrounded" we mean 0s that have buildings around them, which means that the water will actually get trapped *)
 
 (* returns a list where each element is 1 unit smaller*)
@@ -36,4 +42,4 @@ rain_water [0;0;0];;
 rain_water [0;1;0];;
 rain_water [1;0;1];;
 rain_water [0;0;1;0;1;0];;
-rain_water [2;1;3;0;1;2;4;3;1;2;2;1;0;1];;(* all work *)
+rain_water [2;1;3;0;1;2;4;3;1;2;2;1;0;1];;
