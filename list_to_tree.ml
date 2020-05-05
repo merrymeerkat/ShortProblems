@@ -6,6 +6,7 @@ type 'a tree =
   Br of 'a * 'a tree * 'a tree
 |Lf;;
 
+(*function that returns the list of a list *)
 let length l =
   let rec length_helper l acc =
     match l with
@@ -13,14 +14,16 @@ let length l =
     |h::t -> length_helper t (acc+1)
   in length_helper l 0;;
 
-length [1;2;4;5;6;7;8;8];;
+length [1;2;4;5;6;7;8];;
 
+(* function that takes n elements from the beginning of a list l *)
 let rec take n l =
   if n = 0 then []
   else match l with
          h :: t -> h :: take (n-1) t
        | [] -> [];;
 
+(* function that drops n elements from the beginning of a list l *)
 let rec drop n l =
   if n = 0 then l else
     match l with
@@ -28,6 +31,8 @@ let rec drop n l =
     | [] -> [];;
 
 exception Oops of string;;
+
+(*function that splits a list l into three components: head (the first element of the second half), first half and second half *)
 let split l =
   match l with
   |[] -> None
@@ -40,6 +45,7 @@ let split l =
         |h::t-> Some(h, firsthalf, t);;
 
 
+(* And, finally, a function that converts the list l into a tree*)
 let rec treeify l =
   match split l with
   |None -> Lf
