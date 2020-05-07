@@ -2,6 +2,13 @@
 
 You may assume that each input would have exactly one solution, and you may not use the same element twice.*)
 
+let tuplefy l =
+let rec helper l counter =
+  match l with
+  h::t -> (counter, h) :: helper t
+  |[] -> []
+  in helper l 0;;
+
 let rec drop_first l =
   match l with
     h::t-> t
