@@ -4,6 +4,12 @@ You may assume that each input would have exactly one solution, and you may not 
 
 Level: Easy*)
 
+(*drops first element of a tuple list*)
+let rec drop_first tuple_list =
+  match tuple_list with
+    (_,_)::t-> t
+   |[]->[];;
+
 (* transforms int list into tuple list. The first element of each tuple is an index, the second is the original int. e.g. [3;4;5] becomes [(0,2);(1,4);(2,5)]*)
 let tuplefy l =
   let rec helper l counter =
