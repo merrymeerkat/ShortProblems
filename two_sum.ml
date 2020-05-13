@@ -28,7 +28,7 @@ let rec two_sixm arr int =
 let another_one arr int =
   if (two_sixm arr int != None) then
     two_sixm arr int
- else two_sixm (drop_one arr) int;;
+ else another_one (drop_one arr) int;;
 
 
   
