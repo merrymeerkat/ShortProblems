@@ -1,0 +1,25 @@
+(*35. Search Insert Position *)
+
+(*Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+
+You may assume no duplicates in the array.*)
+
+(*Level: Easy *)
+
+let tuplefy arr =
+  let rec helper arr counter =
+    match arr with
+  |h::t -> (counter, h) :: helper t (counter + 1)
+  |[] -> []
+  in helper arr 0;;
+  
+  let rec search_insert_position arr target =
+      match list with
+          (i, h)::t-> if h < target then (search_insert_position t target)
+            else if h > target then (if i == 0 then 0 else (i-1))
+            else i
+          |[]-> 0;;
+          
+let search_insert_position arr target = search_insert_position (tuplefy arr) target;;
+
+search_insert_position [(0,1);(1,2);(2,3)] 2;;
