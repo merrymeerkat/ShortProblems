@@ -12,7 +12,7 @@
 (* Starting at 2 because 2 is the first prime number *)
 let make_list_from_2 n =
    let rec helper n acc counter =
-    if counter > (n - 1) then acc
+    if counter >= n then acc
     else helper n (acc @ [counter]) (counter + 1)
   in helper n [] 2;;
 
