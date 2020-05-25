@@ -21,15 +21,29 @@ let list_of_multiples x n =
   let rec helper x n list acc =
     if acc < n then helper x n (acc :: list) (acc + x) else list
   in helper x n [] (x+x);;
+  
+  (* returns first half of a given list *)
+  let take_half list =
+  let stop = (List.length list)/2 in
+  let rec helper list new_half counter =
+    match list with
+      h::t ->
+          if counter >= stop then new_half
+          else helper t (new_half @ [h]) (counter + 1)
+     |[] -> []
+  in helper list [] 0;;
 
-(*outputs list of non primes strictly less than n, excluding 1*)
+
+(* outputs list of non primes strictly less than n, excluding 1 *)
 (* This list will serve as our "filter" *)
+(* To save computational time, we use only the first half of the list here because the list elements beyond the first half will all have multiples that are already greater than n anyway. That is, the result of taking "Multiples of i less than n" for every i in the list is the same as doing it for the first half of the list. *)
 let all_multiples_less_than n =
   let rec helper list n acc =
     match list with
     |h::t -> helper t n ((list_of_multiples h n) @ acc) 
     |[] -> acc
-  in helper (make_list_from_2 n) n [];;
+  in helper (take_half (make_list_from_2 n)) n [];;
+      
 
 (* Finally, our main function *)
 (*Counts # of primes less than a non-negative int n*)
