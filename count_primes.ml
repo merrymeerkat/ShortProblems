@@ -43,7 +43,7 @@ let all_multiples_less_than n =
     |h::t -> helper t n ((list_of_multiples h n) @ acc) 
     |[] -> acc
   in helper (take_half (make_list_from_2 n)) n [];;
-      
+(* check if it can be :: here instead *)
 
 (* Finally, our main function *)
 (*Counts # of primes less than a non-negative int n*)
