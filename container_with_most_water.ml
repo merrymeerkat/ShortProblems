@@ -34,4 +34,23 @@ let largest_container_helper l =
 let largest_container l = largest_container_helper (tuplefy l);;
 
 largest_container [1;8;6;2;5;4;8;3;7];;
+
+
+(* ... *)
+
+let biggest_container_with_first l =
+  let rec helper l acc =
+    match l with
+    |(i, h) :: t ->
+      (match t with
+      |(i', h') :: t' -> (if ((i' - i) * (min h h')) > acc
+                        then (helper ((i, h) :: t') ((i' - i) * (min h h')))
+                           else helper ((i, h) :: t') acc)
+      |[] -> acc)
+    |[] -> acc
+  in helper (tuplefy l) 0;;
+
+
+biggest_container_with_first [1;2;2;3];;
+
                                     
