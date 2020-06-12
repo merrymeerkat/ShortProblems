@@ -23,15 +23,36 @@ let subset lst strt len =
       |[] -> List.rev acc
    in helper lst strt len [];;
    
-   (*main function *)  (*ajeitar. botar helper e explicação)
-  let rec onze hst ndl counter length =
-     match hst with
-     |h::t -> if (ndl = (subset hst 0 length)) then counter
-              else onze t ndl (counter + 1) length
-     |[] -> (-1);;
+ (*Given an int n and a list, returns the first n elements of the list *)
+ let take n list =
+     let rec helper n list acc =
+         match list with
+         h::t -> if n == 0 then acc
+                 else helper (n -1) t (h :: acc)
+         |[] -> acc
+     in helper n list [];;
 
-   let a =  subset (string_to_list "Abacate") 3 4;;
-   let b =  string_to_list "cate";;
+(* The "take" function above uses the cons (::) operator, which results in a lower time complexity but a backwards list. Here, we reverse the sublist back to the original order *)
+ let take n list = List.rev (take n list);;
+   
+ (*main function *)  
+ (* Given a haystack and a needle, this function will iterate over the haystack, beginning at index 0. At every index, we will take "length" elements of the haystack (where length is the length of the needle) and compare it with the needle. If it is a match, we return the counter that has been keeping track of the haystack's index. Else, we move on to the next element of the haystack and try again. If the end of the haystack is reached, there is no match, so we return -1.*)
+ (* We convert both the haystack and the needle into char lists to make use of OCaml's powerful pattern matching feature for lists. They are both converted backc to strings at the end *)
+ let  strStr hst ndl =
+     let rec helper hst ndl counter length =
+         match hst with
+             |h::t -> if (ndl = (take length hst)) then counter
+              else helper t ndl (counter + 1) length
+             |[] -> (-1)
+   in helper (string_to_list hst) (string_to_list ndl) 0 (List.length (string_to_list ndl));;
+   
+   (* tests *)
+   strstr "Hello" "ll";;
+   strstr "Hello" "lll";;
+   strstr "Hellohello" "ll";;
+   strstr "Hello" "";;
+   strstr "Hello" "lloo";;
+   strstr "Hello" "Hello";;
       
 
 
