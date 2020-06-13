@@ -44,7 +44,10 @@ let reverse l =
   in helper l [];;
 
 (*Now, onto our main function *)
-(* Explanation:    *)
+(* The input is an int list. The function will transform this int list into an int tuple list in order to keep track of each element's order in the list. *)
+(* Explanation: We will iterate through the list from both ends, moving towards the center, trying to find the largest area between two "columns". The area is calculate by multiplying the distance between two elements and the height of the shortest column of the two *)
+(* In order to do this two-sided iteration, we will have a pointer pointing to the first element of the input list (l), and a pointer to the first element of the reversed input list (rl). *)
+(* A step in the iteration will consist of moving one of the pointers (or both) one step towards the middle, and calculating a new area. We make the decision of which pointer to move based on the heights of the columns they are pointing to. We move the pointer from the lower column of the two, because we want to try to get to the largest area possible. For each combination of two columns, we will calculate the current area, and keep the largest area value seen in an accumulator. Once the two pointers meet, the current_area variable will become 0 (because the distance between the two columns is 0), and we can return the maximum area seen so far, which is the area of the largest container in the list. *)
 let container_fast l =
 let rec helper l rl area =
   let a = ref (head l) in
