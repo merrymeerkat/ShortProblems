@@ -20,3 +20,14 @@ let atoi str =
 atoi "45678";;
 atoi "45678dani9";;
 atoi "-43";;
+
+
+let atoi str =
+  let rec helper lst counter acc sign =
+    match lst with
+      [] -> if sign then acc else (-acc) 
+     |h::t -> match (int_of_string_opt h) with
+                Some a -> helper t (counter * 10) (a*counter + acc) sign
+               |None -> if h == "-" then (helper t counter acc false)
+               else (helper t counter acc sign)
+    in helper (List.rev (string_to_list str)) 1 0 true;;
