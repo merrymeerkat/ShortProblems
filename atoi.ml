@@ -7,27 +7,30 @@ let string_to_list str =
   in helper str (length - 1) [];; 
 
 
- (*this one works for the simplest case *)
-let atoi str =
-  let rec helper lst counter acc =
-    match lst with
-      [] -> acc
-     |h::t -> match (int_of_string_opt h) with
-                Some a -> helper t (counter * 10) (a*counter + acc)
-               |None -> helper t counter acc
-    in helper (List.rev (string_to_list str)) 1 0;;
-                                                  
-atoi "45678";;
-atoi "45678dani9";;
-atoi "-43";;
+(* checks if letters appear before numbers *)
+let check_if_alpha string =
+  let rec helper list =
+    match list with
+      [] -> true
+    | h::t -> match (int_of_string_opt h) with
+                Some a -> true
+              |None -> if (((compare h "-") == 0) || ((compare h " ") == 0))
+                                    then helper t
+                       else false
+in helper (string_to_list string);;
 
-
-let atoi str =
-  let rec helper lst counter acc sign =
+let atoi string =
+  if not (check_if_alpha string) then 0 else
+    let rec helper lst counter acc sign =
     match lst with
-      [] -> if sign then acc else (-acc) 
+      [] -> if sign then (-acc) else (acc) 
      |h::t -> match (int_of_string_opt h) with
                 Some a -> helper t (counter * 10) (a*counter + acc) sign
-               |None -> if h == "-" then (helper t counter acc false)
-               else (helper t counter acc sign)
-    in helper (List.rev (string_to_list str)) 1 0 true;;
+               |None -> if (compare h "-") == 0
+                        then helper t counter acc true
+                        else (helper t counter acc sign)
+    in helper (List.rev (string_to_list string)) 1 0 false;;
+
+atoi "abc-345ad";;
+atoi "3456";;
+atoi "-345a";;
