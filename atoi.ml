@@ -1,3 +1,9 @@
+(* 8. String to Integer (atoi) *)
+
+(* Implement atoi which converts a string to an integer. *)
+
+(* Level: Medium *)
+
 (* converts string into a list of unit strings *)
 let string_to_list str =
   let length = String.length str in
@@ -19,6 +25,7 @@ let check_if_alpha string =
                        else false
 in helper (string_to_list string);;
 
+(* Main *)
 let atoi string =
   if not (check_if_alpha string) then 0 else
     let rec helper lst counter acc sign =
@@ -33,4 +40,4 @@ let atoi string =
 
 atoi "abc-345ad";;
 atoi "3456";;
-atoi "-345a";;
+atoi "-345a";;   (*do max int *)
