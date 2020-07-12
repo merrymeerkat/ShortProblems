@@ -1,8 +1,8 @@
-(*Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+(* Given an array of integers, return indices of the two numbers such that they add up to a specific target. *)
 
-You may assume that each input would have exactly one solution, and you may not use the same element twice.
+(* You may assume that each input would have exactly one solution, and you may not use the same element twice. *)
 
-Level: Easy*)
+(* Level: Easy *)
 
 (*drops first element of a tuple list*)
 let rec drop_first tuple_list =
