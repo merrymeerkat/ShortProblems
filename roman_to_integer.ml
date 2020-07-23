@@ -23,7 +23,7 @@ let string_to_list str =
           else helper str (counter - 1) (str.[counter] :: acc)
       in helper str (length - 1) [];;
                
- (* Iterates over input roman in order to calculate the arabic equivalent. We start at the right end and move leftwards. A pointer keeps track of the roman character last seen. If the current character is smaller than the one last seen, then we know we must subtract it from the current total (e.g. an I before X leads to X - I, or 9). Otherwise we sum. *)  
+ (* Iterates over input roman in order to calculate the arabic equivalent. We start at the right end and move leftwards. A pointer keeps track of the roman character last seen. If the current character is smaller than the one last seen, then we know we must subtract it from the current total (e.g. an I before X leads to X - I, or 9). Otherwise we sum. If the input contains characters that are not Roman numerals, the output will be 0. *)  
  let roman_to_int roman =
   let rec helper roman last_seen acc =
   match roman with
