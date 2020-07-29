@@ -5,32 +5,16 @@
 (* Level: Medium *)
 
 (* sketches *)
-let roman_option int =
-  match int with
-    1 -> Some 'I'
-   |5 -> Some 'V'
-   |10 -> Some 'X'
-   |50 -> Some 'L'
-   |100 -> Some 'C'
-   |500 -> Some 'D'
-   |1000 -> Some 'M'
-   |_ -> None;;
+let check int =
+  let rec helper int roman_list =
+    if int >= 1000 then helper (int - 1000) ('M' :: roman_list)
+    else if int >= 500 then helper (int - 500) ('D' :: roman_list)
+    else if int >= 1000 then helper (int - 100) ('C' :: roman_list)
+    else if int >= 50 then helper (int - 50) ('L' :: roman_list)
+    else if int >= 10 then helper (int - 10) ('X' :: roman_list)
+    else if int >= 5 then helper (int - 5) ('V' :: roman_list)
+    else if int >= 1 then helper (int - 5) ('I' :: roman_list)
+    else List.rev (roman_list)
+    in helper int [];;
 
-roman_option 10;;
-
-let rec tri1 int acc =
-  match (roman_option int) with
-  |None -> tri1 (int - 1) ('I' :: acc)
-  |Some rom -> rom :: acc;;
-
-tri1 550 [];;
-
-(* create fun that checks if all els in a list  are the same *)
-
-let grouping roman_list =
-  let helper roman_list recent output =
-    match roman_list with
-    |[] -> output
-    |h::t -> if (List.length recent) > 4 then helper t [h] ('V' :: output)
-    else 
-      
+(* now solve for cases where 4 Is equal IV etc *)
