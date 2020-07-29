@@ -25,10 +25,11 @@ let rec drop tupl l =
 
 drop (1,2) [(0,1);(1,2);(2,3)];;
 
-(*  ... name max_int l *)
+(* expl *)
 let largest_container_helper l =
-  let distance = abs(fst(max_int l) - fst(max_int (drop (max_int l) l)))
-      in distance * snd(max_int (drop (max_int l) l));;
+  let largest_int = max_int l in
+  let distance = abs(fst(largest_int) - fst(max_int (drop (largest_int) l)))
+  in distance * snd(max_int (drop (largest_int) l));;
 
 let largest_container l = largest_container_helper (tuplefy l);;
 
