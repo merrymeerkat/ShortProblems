@@ -17,4 +17,17 @@ let check int =
     else List.rev (roman_list)
     in helper int [];;
 
-(* now solve for cases where 4 Is equal IV etc *)
+
+
+let change_four roman =
+  let rec helper roman new_roman counter =
+    match roman with
+    |[] -> new_roman
+    |h::t ->
+      if h == 'I'
+      then (if counter == 3 then helper t ('I' :: 'V' :: new_roman) 0
+            else helper t new_roman (counter + 1))
+      else helper t (h :: new_roman) 0
+  in helper (List.rev roman) [] 0;;
+  (* make more general case *)
+  (* add expl *)
