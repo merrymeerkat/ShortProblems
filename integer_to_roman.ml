@@ -4,7 +4,7 @@
 
 (* Level: Medium *)
 
-(* sketches *)
+(* Returns a "brute" roman version of a given int. By brute we mean that some roman numerals might be repeated four times (e.g. "IIII") *)
 let check int =
   let rec helper int roman_list =
     if int >= 1000 then helper (int - 1000) ('M' :: roman_list)
@@ -17,17 +17,36 @@ let check int =
     else List.rev (roman_list)
     in helper int [];;
 
+(* Given a roman, returns the next largest roman *)
+let get_next roman =
+  let rec helper roman roman_list =
+    match roman_list with
+    |h::a::t -> if roman == h then Some a else helper roman (a::t)
+    |[a] -> None
+  in helper roman ['I'; 'V'; 'X'; 'L'; 'C'; 'D'; 'M'];;
 
+(* Pops the first n elements of a list *)
+let pop n list =
+  let rec helper n list counter =
+  match list with
+  |[] -> []
+  |h::t -> if counter == 0 then t
+           else helper n t (counter - 1)
+  in helper n list (n - 1);;
 
-let change_four roman =
-  let rec helper roman new_roman counter =
+(* Handles repetition of roman numerals. For example, "IIII" becomes "IV" *)
+let change roman =
+  let rec helper roman new_roman counter last_seen =
     match roman with
     |[] -> new_roman
     |h::t ->
-      if h == 'I'
-      then (if counter == 3 then helper t ('I' :: 'V' :: new_roman) 0
-            else helper t new_roman (counter + 1))
-      else helper t (h :: new_roman) 0
-  in helper (List.rev roman) [] 0;;
-  (* make more general case *)
-  (* add expl *)
+      if h == last_seen
+      then (if counter == 2 then
+              (match get_next h with
+              |Some next_roman ->
+                helper t (h :: next_roman :: (pop 3 new_roman)) 0 'A'
+              |None -> helper t (h :: new_roman) 0 'A')
+      else helper t (h :: new_roman) (counter + 1) h)
+      else helper t (h :: new_roman) 0 h
+  in helper (List.rev roman) [] 0 'A';;
+
