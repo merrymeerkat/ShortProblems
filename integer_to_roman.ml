@@ -33,6 +33,7 @@ let pop n list =
   |h::t -> if counter == 0 then t
            else helper n t (counter - 1)
   in helper n list (n - 1);;
+  
 
 (* Handles repetition of roman numerals. For example, "IIII" becomes "IV" *)
 let change roman =
@@ -50,3 +51,19 @@ let change roman =
       else helper t (h :: new_roman) 0 h
   in helper (List.rev roman) [] 0 'A';;
 
+
+let change_alternate roman =
+  let rec helper roman new_roman =
+    match roman with
+    |[] -> new_roman
+    |[h1] -> new_roman
+    |h1 :: h2 :: [] -> new_roman
+    |h1 :: h2 :: h3 ->
+      if h1 == h3
+      then (match get_next h1 with
+            |Some next_roman ->
+              helper t (h2 :: next_roman :: new_roman)
+            |None ->
+              helper t (h1 :: h2 :: h3 :: new_roman))
+      else helper (h2 :: h3 :: t) (h1 :: new_roman)
+   in helper (List.rev roman) [];;
