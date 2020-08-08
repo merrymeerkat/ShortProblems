@@ -13,7 +13,7 @@ let check int =
     else if int >= 50 then helper (int - 50) ('L' :: roman_list)
     else if int >= 10 then helper (int - 10) ('X' :: roman_list)
     else if int >= 5 then helper (int - 5) ('V' :: roman_list)
-    else if int >= 1 then helper (int - 5) ('I' :: roman_list)
+    else if int >= 1 then helper (int - 1) ('I' :: roman_list)
     else List.rev (roman_list)
     in helper int [];;
 
