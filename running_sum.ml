@@ -19,4 +19,4 @@ let running_sum lst =
 (* tests *)
 running_sum [1;2;3;4];;
 running_sum [1;1;1;1;1];;
-running_sum[3;1;2;10;1];;
+running_sum [3;1;2;10;1];;
