@@ -1,26 +1,21 @@
-
-
-#import sys
-#while True:
- #   print("TRIAL ONE")
-  #  line = sys.stdin.readline()
-
-#wrong, but idk why (see below for a correct version I wrote earlier)
 import sys
 while True:
     for line in sys.stdin:
-
-        print("eh:" + line + "end")
         if line == '':
             break
 
         character_count = [0 for i in range(128)]
+
         for letter in line:
-            if (letter.isalpha):
-                print(letter)
+        # increment character count for that letter
+        # for some reason, python considers '\n' and alpha...
+        # so, even if we check isalpha(), we need the != '\n' bit
+            if (letter != '\n'):
                 character_count[ord(letter) - 1]+=1
+
         possibilities = 1
         mult = 1
+
         for count in character_count:
             if count == 0:
                 continue
@@ -30,7 +25,7 @@ while True:
                 possibilities *= mult
                 mult += 1
                 count -= 1
-
+            # division by letter count because we care about unique solutions
             possibilities //= original_count
 
         print(possibilities)
@@ -39,7 +34,7 @@ while True:
 
 
 """
-THIS VERSION WORKS (BUT NOT ON KATTIS, SINCE KATTIS REQUIRES STDIN)
+THIS VERSION WORKS AS WELL (BUT NOT ON KATTIS, SINCE KATTIS REQUIRES STDIN)
 
 while True:
     line = input()
