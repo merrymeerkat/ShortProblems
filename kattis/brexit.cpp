@@ -1,84 +1,69 @@
 #include <iostream>
 #include <vector>
-#include <set>
 #include <queue>
 
 using namespace std;
 
-typedef vector<int> vi;
-vector<vi> AL;
-vi visited;
+typedef vector <int> vi;
+
+vector <vi> AL;
+vi leftt;
+vi num_partners;
+vi num_partners_post;
+queue <int> leaving;
 
 int main(){
 
-    int C, P, X, L;
-    cin >> C >> P >> X >> L;
+    int C, P, X, L; cin >> C >> P >> X >> L;
+
+    AL.assign(C + 1, vi());
+    leftt.assign(C + 1, 0);
+    num_partners.assign(C + 1, 0);
+    num_partners_post.assign(C + 1, 0);
 
     int u, v;
-    AL.assign(C + 1, vi());
-    visited.assign(C + 1, 0);
-    for (int i = 0; i < P; i++){
+    while (P--){
         cin >> u >> v;
         AL[u].push_back(v);
         AL[v].push_back(u);
     }
 
-    // L leaves
-    set <int> removed;
-    removed.insert(L);
-    queue <int> at_risk;
-    visited[L] = 1;
+    // get number of partners
+    //for (auto it = AL.begin(); it != AL.end(); it++){
+    for (int idx = 1; idx <= C; idx++){
+        num_partners[idx] = (AL[idx]).size();
+        num_partners_post[idx] = (AL[idx].size());
+    }  
 
-    for (auto it = AL[L].begin(); it != AL[L].end(); it++){
-        at_risk.push(*it);
-    }
-   
-    //test
-    cout << "removed ";
-    for (auto it = removed.begin(); it != removed.end(); it++){
-        cout << *it << ' ';
-    }
+    leaving.push(L);
+    leftt[L] = 1;
 
-    int current;
-    float neighb, leaving_neighb;
-    while (!at_risk.empty()){
-        current = at_risk.front();
-    
-        cout << "current is " << current << endl;
-        neighb = 0; leaving_neighb = 0;
-        for (auto it = AL[current].begin(); it != AL[current].end(); it++){
-            cout << "neigh is " << *it << endl;
-            if (!visited[*it])
-                at_risk.push(*it);
-            neighb++;
-            if (removed.find(*it) != removed.end()){
-                leaving_neighb++;
+    //change
+    int country, partners_gone;
+    while(!leaving.empty()){
+        country = leaving.front(); leaving.pop();
+
+        for (auto it = AL[country].begin(); it != AL[country].end(); it++){
+            if (!leftt[*it]){
+                num_partners_post[*it]--;
+                if ((long long)num_partners_post[*it] <= ((long long) num_partners[*it] / 2)){
+                    leaving.push(*it);
+                    leftt[*it] = 1;
+                }
             }
         }
-        cout << "neighb: " << neighb << endl;
-        cout << "leaving neighb: " << leaving_neighb << endl;
-        cout << "neighb / 2 :" << neighb / 2;
-        if (leaving_neighb >= (neighb / 2)){
-            removed.insert(current);
-            cout << "YEAH LETS LEAVE\n";
-        }
-        visited[current] = 1;
-        at_risk.pop();
     }
 
+   /* for (int i = 1; i < C; i++){
+        cout << leftt[i] << endl;
+    }*/
 
-    if (removed.find(X) != removed.end()){
+    if (leftt[X])
         cout << "leave\n";
-    }
-    else {
+    else
         cout << "stay\n";
-    }
-    //cout << at_risk.front();
 
-
-    // Tests
-    for (auto it = removed.begin(); it!=removed.end(); it++){
-        cout << *it << " ";
-    }
+    return 0;
+    
 
 }
