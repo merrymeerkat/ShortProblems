@@ -1,7 +1,7 @@
 
 # Kattis
 
-I'm in love with Kattis! The Kattis folder has some solutions to Kattis problems. They are mostly written in C++, though a couple are in Python3.
+I'm in love with the Kattis Problem Archive! The Kattis folder has some solutions to Kattis problems. They are mostly written in C++, though a couple are in Python3.
 
 # LeetCode
 
