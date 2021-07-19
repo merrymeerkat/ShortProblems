@@ -2,11 +2,13 @@
 
 using namespace std;
 
+typedef long long ll;
+
 int LSOne(int i);
-int query(int i);
+ll query(int i);
 void insert(int i, int j);
 
-int ft[5000000] = { 0 };
+long long ft[5000010] = { 0 };
 int N, Q;
 
 int main(){
@@ -23,8 +25,7 @@ int main(){
             int i; cin >> i;
             cout << query(i) << '\n';
         }
-    }
-    
+    } 
     return 0;
 }
 
@@ -33,7 +34,7 @@ int LSOne(int i){
     return ((i) & -(i));
 }
 
-int query(int i){
+ll query(int i){
     if (i <= 0) return 0;
     return ft[i] + query(i - LSOne(i));
 }
@@ -60,10 +61,4 @@ void insert(int i, int k){
 // When adding k to the value at index i,
 // we set ft[i] += k and do the same for i*, i**, ..., until i**... >= m
 // where i* = i + LSOne(i)
-//
 
-// travel upwards
-
-
-
-// travel downwards
