@@ -35,8 +35,8 @@ int find_root(int a){
     if (a == par[a])
         return a;
     else{
-        par[a] = find_root(par[a]);
-        return par[a];
+        return par[a] = find_root(par[a]);
+        //return par[a];
     }
 }
 
