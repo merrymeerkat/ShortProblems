@@ -1,66 +1,35 @@
 import sys
-while True:
-    for line in sys.stdin:
-        if line == '':
-            break
+import typing
 
-        character_count = [0 for i in range(128)]
+memo = [-1 for _ in range(120)]
+def fact(n : int) -> int:
+    if n == 1:
+        return 1
 
-        for letter in line:
-        # increment character count for that letter
-        # for some reason, python considers '\n' and alpha...
-        # so, even if we check isalpha(), we need the != '\n' bit
-            if (letter != '\n'):
-                character_count[ord(letter) - 1]+=1
+    if memo[n] !=  -1:
+        return memo[n]
 
-        possibilities = 1
-        mult = 1
-
-        for count in character_count:
-            if count == 0:
-                continue
-
-            original_count = count
-            while (count > 0):
-                possibilities *= mult
-                mult += 1
-                count -= 1
-            # division by letter count because we care about unique solutions
-            possibilities //= original_count
-
-        print(possibilities)
-
-
-
-
-"""
-THIS VERSION WORKS AS WELL (BUT NOT ON KATTIS, SINCE KATTIS REQUIRES STDIN)
-
-while True:
-    line = input()
-    if line:
-
-        character_count = [0 for i in range(128)]
-        for letter in line:
-            character_count[ord(letter) - 1]+=1
-        possibilities = 1
-        mult = 1
-        for count in character_count:
-            if count == 0:
-                continue
-
-            original_count = count
-            while (count > 0):
-                possibilities *= mult
-                mult += 1
-                count -= 1
-
-            possibilities //= original_count
-
-        print(possibilities)
     else:
-        break
-"""
+        memo[n] = n * fact(n-1)
+        return memo[n]
 
+
+for word in sys.stdin:
+    if word == '':
+        break
+
+    l = len(word) - 1
+    #print(f'word is {word[:-1]} test')
+
+    count = [0 for _ in range(128)]
+    for letter in word[:-1]:
+        count[ord(letter) - 1] += 1
+
+    res = fact(l)
+    for num in count:
+        if num > 1:
+            res = res // (fact (num))
+
+    print(int(res))
 
 
