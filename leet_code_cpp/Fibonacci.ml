@@ -1,4 +1,5 @@
 (* Short recursive function that returns the nth number in a Fibonacci sequence *)
+(* to improve speed: memoize *)
 
 let fast_fib n =
   let rec fib_helper m a b =
